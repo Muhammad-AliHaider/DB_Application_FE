@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+body{
+    
+  background-image: linear-gradient( #1c7a6f,#262626 );
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: fixed;
+
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
