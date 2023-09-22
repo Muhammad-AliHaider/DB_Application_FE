@@ -1,3 +1,5 @@
+import { deleteDesert, deleteOrder, deleteUser } from '../../dataController/apiFetching/apis';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PopUpForm from '../../components/popUp';
@@ -11,9 +13,10 @@ const TableElementRow = (props) => {
     function handleEditRow(){
         // console.log(props.row,"props.row")
         // console.log(props.keysArray,"props.keysArray")
+        props.handleFieldID(props.row[props.keysArray[0]])
 
         if(props.tabActive === 0){
-            props.handleField1(props.row[props.keysArray[1]] );
+            props.handleField1(props.row[props.keysArray[1]]);
             props.handleField2(props.row[props.keysArray[2]]);
             props.handleField3(props.row[props.keysArray[3]]);
             props.handleField4(props.row[props.keysArray[4]]);
@@ -37,14 +40,48 @@ const TableElementRow = (props) => {
         props.handleEdit();
     }
 
-    function DeleteRecord(){
+    async function DeleteRecord(){
         
         console.log(props.row[props.keysArray[0]],"delete record of id")
+
+        if(props.tabActive === 0){
+          const res = await deleteDesert(props.row[props.keysArray[0]])
+          if(res){
+            alert("Desert Deleted")
+            props.setter((prev) => !prev)
+          }else{
+            alert("Desert Not Deleted")
+          }
+          
+          console.log("delete desert")
+        }
+        else if(props.tabActive === 1){
+          
+          const res = await deleteUser(props.row[props.keysArray[0]])
+          if(res){
+            alert("User Deleted")
+            props.setter((prev) => !prev)
+          }else{
+            alert("User Not Deleted")
+          }
+
+          console.log("delete user")
+        }
+        else if(props.tabActive === 2){
+
+          const res = await deleteOrder(props.row[props.keysArray[0]])
+          if(res){
+            alert("order Deleted")
+            props.setter((prev) => !prev)
+          }else{
+            alert("order Not Deleted")
+          }
+          console.log("delete order")
+        }
     }
 
     return(
         <>
-        {/* {openPopUp?  <PopUpForm Title = {"Update"} handleClickOpen = {handleEdit} TableFields = {props.TableFields} tabActive = {props.tabActive} Field1 = {props.Field1} handleField1 ={props.handleField1} Field2 = {props.Field2} handleField2 ={props.handleField2} Field3 = {props.Field3} handleField3 ={props.handleField3} Field4 = {props.Field4} handleField4 ={props.handleField4} Field5 = {props.Field5} handleField5 ={props.handleField5} Field6 = {props.Field6} handleField6 ={props.handleField6} /> : <></>} */}
         <TableRow
         key={props.row.name}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -71,7 +108,7 @@ const TableElementRow = (props) => {
         }
         
         <TableCell align="left">
-          <DeleteIcon style = {{fontSize : "17.5px"}} onClick = {()=>{DeleteRecord()}} />
+          <DeleteIcon style = {{fontSize : "17.5px"}} onClick = {async ()=>{await DeleteRecord()}} />
         </TableCell>
       </TableRow>
       </>

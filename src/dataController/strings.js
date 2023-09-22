@@ -1,12 +1,13 @@
+import { getDesertTable, getOrdersTable, getUsersTable } from "../dataController/apiFetching/apis";
 
-    const HomePageTitle = "Desert Management System";
+const HomePageTitle = "Desert Management System";
 
     const TableNames = ["Deserts", "Users", "Orders"];
 
     const Table_columns = [
         
         {
-            columns : ["Desert", "calories", "fat", "carbs", "protein"]
+            columns : ["Desert","protein", "fat", "carbs", "Unit Price"]
         },
         {
             columns : ["Name"  , "MobileNumber", "Email", "Address"]
@@ -16,7 +17,62 @@
         }
     ]
 
-    const Deserts = [
+
+    async function getDesert(){
+        let data = await getDesertTable();
+        const deserts = data.rows.map((item) => {
+            // console.log(item)
+            return(
+                {
+                    id : item[0],
+                    Desert : item[1],
+                    calories : item[2],
+                    fat : item[3],
+                    carbs : item[4],
+                    protein : item[5]
+                }
+            )
+        })
+        return deserts;
+    }
+
+    async function getUsers(){
+        let data = await getUsersTable();
+        const users = data.rows.map((item) => {
+            // console.log(item)
+            return(
+                {
+                    id : item[0],
+                    Name : item[1],
+                    MobileNumber : item[2],
+                    Email : item[3],
+                    Address : item[4]
+                }
+            )
+        })
+        return users;
+    }
+
+    async function getOrders(){
+        let data = await getOrdersTable();
+        const orders = data.rows.map((item)=>{
+            return{
+                id : item[0],
+            Order_Id : item[0],
+            Desert : item[7],
+            Ordered_By : item[6],
+            Date : item[3],
+            Quantity : item[4],
+            Unit_Price : item[8],
+            Total : item[5]
+            }
+        })
+
+        return orders;
+
+    }
+
+    const MockDeserts = [
         {
             id : 0,
             Desert : "Frozen yoghurt",
@@ -49,82 +105,11 @@
             carbs : 67,
             protein : 4.3
         },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
-        {
-            id : 3,
-            Desert : "Cupcake",
-            calories : 305,
-            fat : 3.7,
-            carbs : 67,
-            protein : 4.3
-        },
+        
 
     ]
 
-    const Users = [
+    const MockUsers = [
         {
             id : 0,
             Name : "Ali",
@@ -148,7 +133,7 @@
         }
     ]
 
-    const Orders = [
+    const MockOrders = [
         {
             id : 0,
             Order_Id : 1,
@@ -176,4 +161,4 @@
 
 
 
-export { HomePageTitle ,TableNames, Table_columns, Deserts, Users, Orders};
+export { HomePageTitle ,TableNames, Table_columns, MockDeserts, MockUsers, MockOrders, getDesert, getUsers, getOrders};

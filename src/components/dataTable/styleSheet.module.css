@@ -11,3 +11,8 @@
     justify-content: center;   
     height : 56px;
 }
+
+.tableColumn{
+    background-color: #8cd7cb;
+    /* border-left: 1px solid #231f1f; */
+}

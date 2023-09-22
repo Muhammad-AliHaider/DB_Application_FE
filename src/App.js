@@ -14,7 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layouts />}>
           <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
+          {/* <Route path="login" element={<Login />} /> */}
           {/* <Route path="contact" element={<Contact />} /> */}
           {/* <Route path="*" element={<NoPage />} /> */}
         </Route>
